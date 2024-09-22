@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Recept
 
 
@@ -29,3 +29,11 @@ class ReceptsList(ListView):
         # чтобы на её примере рассмотреть работу ещё одного фильтра.
         context['next_sale'] = None
         return context
+    
+class RecipeDetail(DetailView):
+    # Модель всё та же, но мы хотим получать информацию по отдельному товару
+    model = Recept
+    # Используем другой шаблон — product.html
+    template_name = 'recipe.html'
+    # Название объекта, в котором будет выбранный пользователем продукт
+    context_object_name = 'recipe'

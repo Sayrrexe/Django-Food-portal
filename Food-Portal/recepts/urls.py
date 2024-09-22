@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ReceptsList 
+from .views import ReceptsList, RecipeDetail
 
 
 urlpatterns = [
@@ -10,4 +10,5 @@ urlpatterns = [
    # а Django ожидает функцию, нам надо представить этот класс в виде view.
    # Для этого вызываем метод as_view.
    path('', ReceptsList.as_view()), 
+   path('<int:pk>', RecipeDetail.as_view()),
 ]

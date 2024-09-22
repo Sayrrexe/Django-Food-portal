@@ -31,7 +31,7 @@ class Recept(models.Model):
         return self.text[0:50] + '...'
 
     def __str__(self):
-        return f"{self.title} by {self.author.author_user.username}"
+        return f"{self.title}"
 
     def get_absolute_url(self):
         return reverse('news_detail', args=[str(self.id)])
