@@ -51,17 +51,20 @@
 				<div class="collapse navbar-collapse" id="navcol-1">
 					<ul class="navbar-nav mx-auto">
 						<li class="nav-item">
-							<a class="nav-link active" href="index.html">Создать</a>
+							<a class="nav-link" href="/recipes/create/">Создать</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="products.html">Рецепты</a>
+							<a class="nav-link" href="/recipes/">Рецепты</a>
 						</li>
 						<li class="nav-item"></li>
 						<li class="nav-item"></li>
 					</ul>
-					<a class="btn btn-primary shadow" role="button" href="login.html"
+					<a class="btn btn-primary shadow" role="button" href="/accounts/login"
 						>Войти</a
-					><a class="btn btn-primary shadow" role="button" href="signup.html"
+					><a
+						class="btn btn-primary shadow"
+						role="button"
+						href="/accounts/signup"
 						>Регестрация</a
 					>
 				</div>
@@ -70,14 +73,12 @@
 		<header class="bg-dark"></header>
 		<section class="py-5">
 			<div class="container">
-                <div class="row">
-                    <div class="col-lg-12 text-center">
-                        {% block content %}
-                        {{ flatpage.content }}
-                        {% endblock content %}
-                    </div>
-                </div>
-             </div>
+				<div class="row">
+					<div class="col-lg-12 text-center">
+						{% block content %} {{ flatpage.content }} {% endblock content %}
+					</div>
+				</div>
+			</div>
 		</section>
 		<footer class="bg-dark"></footer>
 	</body>
