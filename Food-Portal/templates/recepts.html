@@ -1,24 +1,48 @@
 {% extends 'flatpages/default.html' %}
 
 {% block title %}
-Products
+Продукты
 {% endblock title %}
 
 {% block content %}
-   <h1>Все Новости</h1>
-   <hr>
-   {% if recepts %}
-           {% for product in recepts %}
-		   <div class="card" style="width: 25rem;">
-			<img class="card-img-top" src="..." alt="Card image cap">
-			<div class="card-body">
-			  <h5 class="card-title">{{product.title }}</h5>
-			  <p class="card-text">{{ product.text|truncatechars:64  }}...</p>
-			  <a href="{{ product.id}}" class="btn btn-primary">Подробнее</a>
-			</div>
-		   </div>
-           {% endfor %}
-   {% else %}
-       <h2>Товаров нет!</h2>
-   {% endif %}
+<section class="py-5">
+    {% if recepts %}
+    <div class="container py-4 py-xl-5">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <h2>Все Рецепты</h2>
+            </div>
+        </div>
+        <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+            {% for product in recepts %}
+            <div class="col">
+                <div class="p-4">
+                    <h4>{{ product.title }}</h4>
+                    <p>{{ product.text|truncatechars:64 }}...</p>
+                    <div class="d-flex">
+                        <img
+                            class="rounded-circle flex-shrink-0 me-3 fit-cover"
+                            width="50"
+                            height="50"
+                            src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png"
+                        />
+                        <div>
+                            <p class="fw-bold mb-0">{{ product.author }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="container py-4 py-xl-5">
+        <div class="row mb-5">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <h2>Нет доступных рецептов</h2>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</section>
 {% endblock content %}
