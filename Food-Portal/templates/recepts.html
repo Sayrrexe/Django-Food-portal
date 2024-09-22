@@ -1,0 +1,24 @@
+{% extends 'flatpages/default.html' %}
+
+{% block title %}
+Products
+{% endblock title %}
+
+{% block content %}
+   <h1>Все Новости</h1>
+   <hr>
+   {% if recepts %}
+           {% for product in recepts %}
+		   <div class="card" style="width: 25rem;">
+			<img class="card-img-top" src="..." alt="Card image cap">
+			<div class="card-body">
+			  <h5 class="card-title">{{product.title }}</h5>
+			  <p class="card-text">{{ product.text|truncatechars:64  }}...</p>
+			  <a href="{{ product.id}}" class="btn btn-primary">Подробнее</a>
+			</div>
+		   </div>
+           {% endfor %}
+   {% else %}
+       <h2>Товаров нет!</h2>
+   {% endif %}
+{% endblock content %}
