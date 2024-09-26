@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ReceptsList, RecipeDetail
+from .views import ReceptsList, RecipeDetail, RecipeCreate
 
 
 urlpatterns = [
@@ -9,6 +9,7 @@ urlpatterns = [
    # Т.к. наше объявленное представление является классом,
    # а Django ожидает функцию, нам надо представить этот класс в виде view.
    # Для этого вызываем метод as_view.
-   path('', ReceptsList.as_view()), 
-   path('<int:pk>', RecipeDetail.as_view()),
+   path('', ReceptsList.as_view(), name='recept_list'), 
+   path('<int:pk>', RecipeDetail.as_view(), name='detile_recipe'),
+   path('create/', RecipeCreate.as_view(), name='product_create'),
 ]

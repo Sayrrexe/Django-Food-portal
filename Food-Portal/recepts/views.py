@@ -1,7 +1,11 @@
 from datetime import datetime
 
-from django.views.generic import ListView, DetailView
-from .models import Recept
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
+from .models import Recept, Author
 
 
 class ReceptsList(ListView):
@@ -37,3 +41,15 @@ class RecipeDetail(DetailView):
     template_name = 'recipe.html'
     # Название объекта, в котором будет выбранный пользователем продукт
     context_object_name = 'recipe'
+    
+@method_decorator(login_required, name='dispatch')
+class RecipeCreate(CreateView):
+    model = Recept
+    template_name = 'create.html'
+    fields = ['title', 'text', 'ccal']
+    success_url = reverse_lazy('recept_list') # Укажите URL для перенаправления после успеха
+
+    def form_valid(self, form): 
+        author, created = Author.objects.get_or_create(author_user=self.request.user)  # Используйте author_user
+        form.instance.author = author
+        return super().form_valid(form)

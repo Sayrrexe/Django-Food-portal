@@ -1,9 +1,10 @@
-{% extends 'flatpages/default.html' %}
+{% extends 'flatpages/default.html' %} 
 
-{% block title %}
-Рецепт
-{% endblock title %}
+{% block title %} 
+Рецепт 
+{% endblock title %} 
 
 {% block content %}
-<h1>{{ recipe }}</h1>
+<h1>{{ recipe.title }}</h1>
+<p>{{ recipe.text}}</p>
 {% endblock content %}
