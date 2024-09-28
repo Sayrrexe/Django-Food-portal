@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from accounts import views as user_views
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name = 'home.html'), name='home'),
@@ -24,4 +25,5 @@ urlpatterns = [
     path('pages/', include('django.contrib.flatpages.urls')),
     path('recipes/', include('recepts.urls')),
     path("accounts/", include("allauth.urls")),
+    path('profile/', user_views.profile, name='profile'),
 ]
