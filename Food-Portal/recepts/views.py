@@ -8,6 +8,7 @@ from django.shortcuts import redirect
 
 from .models import Recept, Author, Comment
 from .forms import CommentForm
+from .filtrs import ProductFilter
 
 
 class ReceptsList(ListView):
@@ -17,11 +18,23 @@ class ReceptsList(ListView):
     context_object_name = 'recepts'
     paginate_by = 9
     
+    def get_queryset(self):
+       # Получаем обычный запрос
+       queryset = super().get_queryset()
+       # Используем наш класс фильтрации.
+       # self.request.GET содержит объект QueryDict, который мы рассматривали
+       # в этом юните ранее.
+       # Сохраняем нашу фильтрацию в объекте класса,
+       # чтобы потом добавить в контекст и использовать в шаблоне.
+       self.filterset = ProductFilter(self.request.GET, queryset)
+       # Возвращаем из функции отфильтрованный список товаров
+       return self.filterset.qs
+    
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['time_now'] = datetime.utcnow()
-        context['next_sale'] = None
-        return context
+       context = super().get_context_data(**kwargs)
+       # Добавляем в контекст объект фильтрации.
+       context['filterset'] = self.filterset
+       return context
     
 class RecipeDetail(DetailView):
     form_class = CommentForm
