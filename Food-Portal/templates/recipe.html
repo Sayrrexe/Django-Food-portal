@@ -6,11 +6,21 @@
 
 {% block content %}
 <h1>{{ recipe.title }}</h1>
-<p>{{ recipe.text}}</p>
-<hr> 
-<form action="" method="post">
+<p>{{ recipe.text }}</p>
+<h2>Комментарии</h2>
+<div>
+    {% for comment in comments %}
+        {{ comment.commentUser.username }}: {{ comment.text }} ({{ comment.date }})
+    {% empty %}
+        <li>Комментариев пока нет.</li>
+    {% endfor %}
+</div>
+
+<h2>Оставить комментарий</h2>
+<form method="post" action="{% url 'add_comment' recipe.pk %}">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save" />
+    {{ comment_form.as_p }}
+    <button type="submit">Отправить</button>
 </form>
+
 {% endblock content %}

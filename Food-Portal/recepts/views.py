@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.shortcuts import redirect
 
 from .models import Recept, Author, Comment
 from .forms import CommentForm
@@ -23,11 +24,31 @@ class ReceptsList(ListView):
         return context
     
 class RecipeDetail(DetailView):
-    form_class = CommentForm    
+    form_class = CommentForm
     model = Recept
     template_name = 'recipe.html'
-    
     context_object_name = 'recipe'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
+        context['comments'] = Comment.objects.filter(commentRecept=self.object)
+        return context
+
+@login_required
+def add_comment(request, pk):
+    recipe = Recept.objects.get(pk=pk)
+    
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.commentRecept = recipe
+            comment.commentUser = request.user
+            comment.save()
+            return redirect('detile_recipe', pk=recipe.pk)
+
+    return redirect('detile_recipe', pk=recipe.pk)
     
 @method_decorator(login_required, name='dispatch')
 class RecipeCreate(CreateView):
@@ -42,21 +63,3 @@ class RecipeCreate(CreateView):
         return super().form_valid(form)
     
 
-def get_name(request):
-    # if this is a POST request we need to process the form data
-    if request.method == "POST":
-        # create a form instance and populate it with data from the request:
-        form = CommentForm(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = CommentForm()
-
-    return 
-    
