@@ -15,7 +15,7 @@ class ReceptsList(ListView):
     ordering = 'date_creation'
     template_name = 'recepts.html'
     context_object_name = 'recepts'
-    
+    paginate_by = 9
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
