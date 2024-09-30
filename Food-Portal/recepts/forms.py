@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Recept
+from .models import Recept, Comment
 
 
 class ProductForm(forms.ModelForm):
@@ -21,3 +21,9 @@ class ProductForm(forms.ModelForm):
             )
 
         return cleaned_data
+    
+class CommentForm(forms.ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ['text']
