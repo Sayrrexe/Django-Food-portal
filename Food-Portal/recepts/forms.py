@@ -4,24 +4,6 @@ from django.core.exceptions import ValidationError
 from .models import Recept, Comment
 
 
-class ProductForm(forms.ModelForm):
-
-    class Meta:
-        model = Recept
-        fields = ['title', 'text', 'ccal']
-
-    def clean(self, form):
-        cleaned_data = super().clean()
-        description = cleaned_data.get("text")
-        name = cleaned_data.get("title")
-
-        if name == description:
-            raise ValidationError(
-                "Описание не должно быть идентично названию."
-            )
-
-        return cleaned_data
-    
 class CommentForm(forms.ModelForm):
 
     class Meta:
