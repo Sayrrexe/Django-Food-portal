@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.yandex',
-    'django_filters',    
+    'django_filters',  
 ]
 SITE_ID = 1
 

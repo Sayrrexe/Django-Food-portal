@@ -1,9 +1,13 @@
 {% extends 'flatpages/default.html' %}
-
+{% load static %}
 {% block title %}
-<title> Добро Пожаловать </title>
+<title>Добро Пожаловать</title>
 {% endblock title %}
 
-{% block content%}
-<h1>Hello World!</h1> 
-{% endblock content%}
+{% block content %}
+<h1>Hello World!</h1>
+<div style="display: flex; align-items: center;">
+    <img src="{% static 'food.png' %}" alt="Food Image" style="width: 500px; height: auto; margin-right: 20px;">
+    <p>{% lorem 2 b random %}</p>
+</div>
+{% endblock content %}
